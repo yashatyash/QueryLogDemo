@@ -31,7 +31,8 @@ public class GetEmployeeDataProvider {
 
     public void mapTo(PreparedStatement pstmt) throws SQLException {
         pstmt.setString(1, EMP_ID);
-        logQuery();
+        CustomLogger.sqlLog(pstmt.toString());
+//        logQuery();
     }
 
     public Object mapFrom(ResultSet rs) throws SQLException {

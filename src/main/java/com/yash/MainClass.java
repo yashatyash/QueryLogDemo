@@ -2,6 +2,7 @@ package com.yash;
 
 import com.yash.jdbcTemplate.JDBCTemplateFactory;
 import com.yash.model.Employee;
+import com.yash.provider.AddEmployeeDataProvider;
 import com.yash.provider.GetEmployeeDataProvider;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -25,5 +26,12 @@ public class MainClass {
         for (Employee employee : employeeList) {
             System.out.println(employee.toString());
         }
+    }
+
+    public static void createNewEmployee() {
+        JdbcTemplate jdbcTemplate = JDBCTemplateFactory.getJdbcTemplate();
+        AddEmployeeDataProvider provider = new AddEmployeeDataProvider();
+        String query = provider.getWriteQuery();
+        jdbcTemplate.update(query, (PreparedStatement ps) -> provider.mapTo(ps));
     }
 }
